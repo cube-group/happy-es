@@ -175,7 +175,5 @@ curl --request POST \
 ```
 curl --request DELETE \
   --url 'http://127.0.0.1:10200/index-name/type-name/1' \
-  --header 'authorization: Basic ZWxhc3RpYzoxcWF6MndzeDNlZGM=' \
-  --header 'cache-control: no-cache' \
-  --header 'postman-token: 1d155cac-62a2-d19e-cdb4-670d0f5cb1a8'
+  --header 'authorization: Basic xxx='
 ```
