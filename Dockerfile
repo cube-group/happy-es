@@ -18,8 +18,6 @@ ENV ES_DISCOVERY_HOSTS ""
 #    apk update && apk add curl
 COPY plugins/elasticsearch-analysis-ik-6.2.4.zip /elasticsearch-analysis-ik-6.2.4.zip
 COPY elasticsearch.yml /usr/share/elasticsearch/config/elasticsearch.yml
-COPY supervisor.conf /supervisor.conf
-COPY --from=ochinchina/supervisord:latest /usr/local/bin/supervisord /usr/local/bin/supervisord
 COPY run.sh /run.sh
 
 RUN unzip -o /elasticsearch-analysis-ik-6.2.4.zip -d plugins && \
