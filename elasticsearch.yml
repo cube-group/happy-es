@@ -1,0 +1,103 @@
+# ======================== Elasticsearch Configuration =========================
+#
+# ---------------------------------- Cluster -----------------------------------
+#
+# 配置Elasticsearch的集群名称，默认是elasticsearch
+#
+cluster.name: elasticsearch
+
+#
+# ------------------------------------ Node ------------------------------------
+#
+# 节点名，默认随机指定一个name列表中名字。集群中node名字不能重复
+node.name: node-name
+
+node.master: true
+
+node.data: true
+
+#
+#
+#################################### Index ####################################
+#
+# 设置每个index默认的分片数，默认是5
+# 5x版本不支持
+#curl -XPUT ‘http://localhost:9200/_all/_settings?preserve_existing=true’ -d ‘{
+#“index.number_of_shards” : “3”
+#}’
+#
+#curl -XPUT ‘http://localhost:9200/_all/_settings?preserve_existing=true’ -d ‘{
+#“index.mapper.dynamic” : “false”,
+#“index.translog.durability” : “async”,
+#“index.translog.sync_interval” : “30s”
+#}’
+#
+#index.number_of_shards: 2
+#
+# 设置每个index的默认的冗余备份的分片数，默认是1
+#index.number_of_replicas: 1
+# ----------------------------------- Paths ------------------------------------
+#
+# 索引数据的存储路径，默认是es根目录下的data文件夹
+#
+# path.data: /path/to/data
+#
+# 日志路径:
+#
+# path.logs: /path/to/logs
+#
+# ----------------------------------- Memory -----------------------------------
+#
+# 启动时开启内存锁，防止启动ES时swap内存。
+#
+#bootstrap.memory_lock: true
+#
+#
+# ---------------------------------- Network -----------------------------------
+#
+# Set the bind address to a specific IP (IPv4 or IPv6):
+#
+# 绑定的ip地址, 可以是hostname或者ip地址，用来和集群中其他节点通信，同时会设置network.publish_host,以及network.bind_host
+#network.host: 0.0.0.0
+#设置绑定的ip地址，生产环境则是实际的服务器ip，这个ip地址关系到实际搜索服务通信的地址，和服务在同一个集群环境的可以用内网ip，默认和network.host相同。
+network.publish_host: 0.0.0.0
+
+#设置绑定的ip地址，可以是ipv4或ipv6的，默认和network.host相同。
+network.bind_host: 0.0.0.0
+
+#节点间交互的tcp端口，默认是10300
+transport.tcp.port: 10300
+
+#设置对外服务的http端口，默认为10200
+#http.host: 0.0.0.0
+http.port: 10200
+
+http.cors.allow-headers: Authorization
+
+http.cors.enabled: true
+
+http.cors.allow-origin: "*"
+
+#transport.tcp.compress: true
+#设置是否压缩tcp传输时的数据，默认为false，不压缩。
+#
+# --------------------------------- Discovery ----------------------------------
+#
+# 启动时初始化集群的服务发现的各个节点的地址。
+#discovery.zen.ping.unicast.hosts: ["127.0.0.1"]
+
+#设置这个参数来保证集群中的节点可以知道其它N个有master资格的节点。默认为1。为了防止选举时发生“脑裂”，建议配置master节点数= （总结点数/2 + 1）
+discovery.zen.minimum_master_nodes: 1
+#
+# ---------------------------------- Gateway -----------------------------------
+#
+# 设置集群中N个节点启动之后才可以开始数据恢复，默认为1。
+#gateway.recover_after_nodes: 1
+#
+# ---------------------------------- Various -----------------------------------
+#
+node.max_local_storage_nodes: 256
+#
+# 设置删除索引时需要指定索引name，防止一条命令删除所有索引数据。默认是true
+#
+#action.destructive_requires_name: true
